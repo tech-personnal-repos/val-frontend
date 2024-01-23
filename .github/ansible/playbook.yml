@@ -21,7 +21,7 @@
       when: repo.changed
 
     - name: Build Angular app
-      shell: npm run build:prod
+      shell: npm run build:prod --output-path="{{ angular_app_path }}/tmp"
       args:
         chdir: "{{ angular_app_path }}"
       when: repo.changed
