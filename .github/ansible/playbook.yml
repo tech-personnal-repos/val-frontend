@@ -35,9 +35,3 @@
     - name: Move Angular app build
       shell: mv {{ angular_app_path }}/tmp {{ angular_app_path }}/dist/front
       when: repo.changed
-
-    - name: Remove tmp folder
-      file:
-        path: "{{ angular_app_path }}/tmp"
-        state: absent
-      when: repo.changed
