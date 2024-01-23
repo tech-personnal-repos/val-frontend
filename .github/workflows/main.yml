@@ -11,14 +11,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment:
-      name: ansible
 
     steps:
       - uses: actions/checkout@v3
 
       - name: Run a one-line script
-        run: echo $HOST ansible_user=$USER
+        run: echo '${{ansible.HOST}}'
 
       - name: Run playbook
         uses: dawidd6/action-ansible-playbook@v2
@@ -26,7 +24,7 @@ jobs:
         with:
           playbook: playbook.yml
           directory: ./.github/ansible
-          key: $SSH_KEY
+          key: ${{ansible.SSH_KEY}}
           inventory: |
             [frontend]
-            $HOST ansible_user=$USER
+            ${{ansible.HOST}} ansible_user=${{ansible.root}}
