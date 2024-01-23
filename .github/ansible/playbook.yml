@@ -33,7 +33,7 @@
       when: repo.changed
 
     - name: Replace Angular app
-      move:
+      copy:
         src: "{{ angular_app_path }}/tmp"
         dest: "{{ angular_app_path }}/dist/front"
       when: repo.changed
