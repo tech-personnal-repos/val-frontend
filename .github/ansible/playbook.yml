@@ -21,7 +21,9 @@
       when: repo.changed
 
     - name: Build Angular app
-      shell: cd {{ angular_app_path }} &&  npm run-script ng build --configuration=production --outputPath=tmp
+      shell: npm run build:prod:noDowntime
+      args:
+        chdir: "{{ angular_app_path }}"
       when: repo.changed
 
     - name: Remove old Angular app
@@ -31,7 +33,7 @@
       when: repo.changed
 
     - name: Replace Angular app
-      copy:
+      move:
         src: "{{ angular_app_path }}/tmp"
         dest: "{{ angular_app_path }}/dist/front"
       when: repo.changed
