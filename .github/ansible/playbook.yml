@@ -21,16 +21,19 @@
       when: repo.changed
 
     - name: Build Angular app
-      shell: cd {{ angular_app_path }}&&  npm run-script ng build --configuration=production --outputPath=tmp
-      args:
-        chdir: "{{ angular_app_path }}"
+      shell: cd {{ angular_app_path }} &&  npm run-script ng build --configuration=production --outputPath=tmp
       when: repo.changed
 
-    - name: Copy Angular app
+    - name: Remove old Angular app
+      file:
+        path: "{{ angular_app_path }}/dist/front"
+        state: absent
+      when: repo.changed
+
+    - name: Replace Angular app
       copy:
         src: "{{ angular_app_path }}/tmp"
-        dest: "{{ angular_app_path }}/dist"
-        remote_src: yes
+        dest: "{{ angular_app_path }}/dist/front"
       when: repo.changed
 
     - name: Remove tmp folder
