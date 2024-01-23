@@ -15,11 +15,6 @@
         version: "{{ branch }}"
       register: repo
 
-    - name: Build Angular app
-      ansible.builtin.import_tasks:
-        file: playbooks/frontend/build.yml
-      when: repo.changed
-
     - name: Install Angular dependencies
       npm:
         path: "{{ angular_app_path }}"
