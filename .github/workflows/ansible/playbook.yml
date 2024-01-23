@@ -1,0 +1,33 @@
+- name: Setup Frontend
+  hosts: frontend
+  user: root
+
+  vars:
+    angular_app_path: /var/www/val-frontend
+    repo_url: https://github.com/tech-personnal-repos/val-frontend.git
+    branch: main
+
+  tasks:
+    - name: Clone repository
+      git:
+        repo: "{{ repo_url }}"
+        dest: "{{ angular_app_path }}"
+        version: "{{ branch }}"
+      register: repo
+
+    - name: Build Angular app
+      ansible.builtin.import_tasks:
+        file: playbooks/frontend/build.yml
+      when: repo.changed
+
+    - name: Install Angular dependencies
+      npm:
+        path: "{{ angular_app_path }}"
+        state: present
+      when: repo.changed
+
+    - name: Build Angular app
+      shell: npm run build:prod
+      args:
+        chdir: "{{ angular_app_path }}"
+      when: repo.changed
