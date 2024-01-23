@@ -11,16 +11,20 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment:
+      name: ansible
+      url: https://github.com
 
     steps:
       - uses: actions/checkout@v3
 
       - name: Run playbook
         uses: dawidd6/action-ansible-playbook@v2
+
         with:
           playbook: playbook.yml
           directory: ./.github/ansible
-          key: ${{secrets.SSH_KEY}}
+          key: $SSH_KEY
           inventory: |
             [frontend]
-            ${{secrets.HOST}} ansible_user=${{root}}
+            $USER@$HOST
