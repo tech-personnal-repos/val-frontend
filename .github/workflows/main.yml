@@ -23,4 +23,4 @@ jobs:
           key: ${{secrets.SSH_KEY}}
           inventory: |
             [frontend]
-            ${{secrets.USER}}@${{secrets.HOST}}
+            ${{secrets.HOST}} ansible_user=${{root}}
