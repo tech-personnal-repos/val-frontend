@@ -1,6 +1,5 @@
 - name: Setup Frontend
   hosts: frontend
-  user: root
 
   vars:
     angular_app_path: /var/www/val-frontend
