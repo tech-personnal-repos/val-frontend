@@ -1,5 +1,5 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<section style="text-align:center">
+<section style="text-align: center">
   <h1>Welcome</h1>
 </section>
 
@@ -10,17 +10,34 @@
 
 <section>
   <h2>Chat</h2>
-  <form style="text-align: center;" (ngSubmit)="postMessage(myForm.form.value)" #myForm="ngForm">
-    <input id="username" name="username" type="text" placeholder="Username" ngModel>
-    <input id="message" name="message" type="text" placeholder="Message" ngModel>
+  <form
+    style="text-align: center"
+    (ngSubmit)="postMessage(myForm.form.value)"
+    #myForm="ngForm"
+  >
+    <input
+      id="username"
+      name="username"
+      type="text"
+      placeholder="Username"
+      ngModel
+    />
+    <input
+      id="message"
+      name="message"
+      type="text"
+      placeholder="Message"
+      ngModel
+    />
 
+    <p>test1</p>
     <button type="submit">Send</button>
-    <br>
-    {{formError}}
+    <br />
+    {{ formError }}
   </form>
 
   <article class="msg" *ngFor="let msg of messages">
-    <strong>From: {{msg.username}}</strong>
-    <p>{{msg.message}}</p>
+    <strong>From: {{ msg.username }}</strong>
+    <p>{{ msg.message }}</p>
   </article>
 </section>

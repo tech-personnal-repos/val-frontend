@@ -20,3 +20,7 @@ jobs:
         with:
           playbook: playbook.yml
           directory: ./.github/ansible
+          key: ${{secrets.SSH_PRIVATE_KEY}}
+          inventory: |
+            [frontend]
+            ${{secrets.USER}}@${{secrets.HOST}}
