@@ -18,4 +18,5 @@ jobs:
       - name: Run playbook
         uses: dawidd6/action-ansible-playbook@v2
         with:
-          playbook: ./.github/ansible/playbook.yml
+          playbook: playbook.yml
+          directory: ./.github/ansible
