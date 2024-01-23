@@ -15,9 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Run a one-line script
-        run: echo ${{secrets.HOST}}
-
       - name: Run playbook
         uses: dawidd6/action-ansible-playbook@v2
 
