@@ -21,7 +21,7 @@
       when: repo.changed
 
     - name: Build Angular app
-      shell: npm run-script ng build --configuration=production --outputPath=tmp
+      shell: cd {{ angular_app_path }}&&  npm run-script ng build --configuration=production --outputPath=tmp
       args:
         chdir: "{{ angular_app_path }}"
       when: repo.changed
