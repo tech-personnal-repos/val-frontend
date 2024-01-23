@@ -17,6 +17,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Run a one-line script
+        run: echo $HOST ansible_user=$USER
+
       - name: Run playbook
         uses: dawidd6/action-ansible-playbook@v2
 
