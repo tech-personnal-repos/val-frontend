@@ -20,18 +20,28 @@
         state: present
       when: repo.changed
 
+    - name: Package version
+      shell: 'cat package.json | grep version | head -1 | awk -F: ''{ print $2 }'' | sed ''s/[",]//g'' | tr -d ''[[:space:]]'''
+      args:
+        chdir: "{{ angular_app_path }}"
+      register: package_version
+      when: repo.changed
+
     - name: Build Angular app
-      shell: npm run build:prod:noDowntime
+      shell: npm run build:prod -- outputDir={{ angular_app_path }}/release/{{ package_version.stdout }}
       args:
         chdir: "{{ angular_app_path }}"
       when: repo.changed
 
-    - name: Remove old Angular app
+    - name: Remove old Angular link
       file:
         path: "{{ angular_app_path }}/dist/front"
         state: absent
       when: repo.changed
 
-    - name: Move Angular app build
-      shell: mv {{ angular_app_path }}/tmp {{ angular_app_path }}/dist/front
+    - name: link Angular app build
+      file:
+        src: "{{ angular_app_path }}/release/{{ package_version.stdout }}"
+        dest: "{{ angular_app_path }}/dist/front"
+        state: link
       when: repo.changed
