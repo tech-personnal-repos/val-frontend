@@ -28,7 +28,7 @@
       when: repo.changed
 
     - name: Build Angular app
-      shell: npm run build:prod -- --outputDir={{ angular_app_path }}/release/{{ package_version.stdout }}
+      shell: npm run build:prod -- --outputPath=/release/{{ package_version.stdout }}
       args:
         chdir: "{{ angular_app_path }}"
       when: repo.changed
