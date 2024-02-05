@@ -80,13 +80,13 @@ jobs:
           tag: ${{ steps.package.outputs.version }}
           overwrite: true
 
-      # - name: Run playbook
-      #   uses: dawidd6/action-ansible-playbook@v2
+      - name: Run playbook
+        uses: dawidd6/action-ansible-playbook@v2
 
-      #   with:
-      #     playbook: playbook.yml
-      #     directory: ./.github/ansible
-      #     key: ${{secrets.SSH_KEY}}
-      #     inventory: |
-      #       [frontend]
-      #       ${{secrets.HOST}} ansible_user=${{secrets.USER}}
+        with:
+          playbook: playbook.yml
+          directory: ./.github/ansible
+          key: ${{secrets.SSH_KEY}}
+          inventory: |
+            [frontend]
+            ${{secrets.HOST}} ansible_user=${{secrets.USER}}
