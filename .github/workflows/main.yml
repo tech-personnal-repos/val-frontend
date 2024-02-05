@@ -11,6 +11,11 @@ on:
 jobs:
   create-release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      pull-requests: write
+      issues: write
     steps:
       - uses: actions/checkout@v4.1.1
 
