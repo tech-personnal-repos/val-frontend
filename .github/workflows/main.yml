@@ -47,10 +47,10 @@ jobs:
     needs: create-release
     environment: production
     permissions:
-      contents: read
-      packages: read
-      pull-requests: read
-      issues: read
+      contents: write
+      packages: write
+      pull-requests: write
+      issues: write
     steps:
       - uses: actions/checkout@v4.1.1
 
