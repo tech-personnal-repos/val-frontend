@@ -60,6 +60,7 @@ jobs:
           node-version: 10
 
       - name: Npm install
+
         run: npm install
 
       - name: Npm build
