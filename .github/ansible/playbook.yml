@@ -27,6 +27,12 @@
         dest: /tmp/val-frontend.zip
       when: repo.changed
 
+    - name: Create release directory if doesn't exist
+      file:
+        path: "{{ angular_app_path }}/release/{{ package_version.stdout }}"
+        state: directory
+      when: repo.changed
+
     - name: Unzip front build
       ansible.builtin.unarchive:
         src: /tmp/val-frontend.zip
