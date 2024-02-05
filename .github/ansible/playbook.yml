@@ -12,30 +12,25 @@
       args:
         chdir: "{{ angular_app_path }}"
       register: package_version
-      when: repo.changed
 
     - name: Get front build
       ansible.builtin.get_url:
         url: https://github.com/tech-personnal-repos/val-frontend/releases/download/{{ package_version.stdout }}/front.zip
         dest: /tmp/val-fontend
-      when: repo.changed
 
     - name: Unzip front build
       ansible.builtin.unarchive:
         src: /tmp/val-fontend/front.zip
         dest: "{{ angular_app_path }}/release/{{ package_version.stdout }}"
         remote_src: yes
-      when: repo.changed
 
     - name: Remove old Angular link
       file:
         path: "{{ angular_app_path }}/dist/front"
         state: absent
-      when: repo.changed
 
     - name: link Angular app build
       file:
         src: "{{ angular_app_path }}/release/{{ package_version.stdout }}"
         dest: "{{ angular_app_path }}/dist/front"
         state: link
-      when: repo.changed
