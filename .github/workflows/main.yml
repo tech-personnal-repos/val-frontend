@@ -70,7 +70,7 @@ jobs:
         uses: kylejrp/action-nodejs-package-info@v1.2
 
       - name: Zip build folder
-        run: zip -r front.zip dist/front/*
+        run: zip -r -k front.zip dist/front/*
 
       - name: Upload File
         uses: svenstaro/upload-release-action@v2
