@@ -16,11 +16,11 @@
     - name: Get front build
       ansible.builtin.get_url:
         url: https://github.com/tech-personnal-repos/val-frontend/releases/download/{{ package_version.stdout }}/front.zip
-        dest: /tmp/val-fontend
+        dest: /tmp/val-fontend.zip
 
     - name: Unzip front build
       ansible.builtin.unarchive:
-        src: /tmp/val-fontend/front.zip
+        src: /tmp/val-fontend.zip
         dest: "{{ angular_app_path }}/release/{{ package_version.stdout }}"
         remote_src: yes
 
