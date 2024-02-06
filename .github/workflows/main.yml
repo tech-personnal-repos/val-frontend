@@ -107,8 +107,8 @@ jobs:
           inventory: |
             [frontend]
             ${{ secrets.HOST }} ansible_user=${{ secrets.USER }}
-          extra-vars: |
-            version=${{ steps.package.outputs.version }}
-            backend_host=${{ secrets.BACKEND_HOST }}
-            app_path=${{ secrets.APP_PATH }}
-            host=${{ secrets.HOST }}
+          options: |
+            --extra-vars download_url=https://github.com/tech-personnal-repos/val-frontend/releases/download/${{ steps.package.outputs.version }}/front.zip
+            --extra-vars backend_host=${{ secrets.BACKEND_HOST }}
+            --extra-vars app_path=${{ secrets.APP_PATH }}
+            --extra-vars host=${{ secrets.HOST }}

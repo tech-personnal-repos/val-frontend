@@ -1,6 +1,6 @@
 - name: Get front build
   ansible.builtin.get_url:
-    url: https://github.com/tech-personnal-repos/val-frontend/releases/download/{{ version }}/front.zip
+    url: "{{ download_url }}"
     dest: /tmp/front.zip
 
 - name: Unzip front build
