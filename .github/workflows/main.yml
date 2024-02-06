@@ -111,3 +111,4 @@ jobs:
             version=${{ steps.package.outputs.version }}
             backend_host=${{ secrets.BACKEND_HOST }}
             app_path=${{ secrets.APP_PATH }}
+            host=${{ secrets.HOST }}

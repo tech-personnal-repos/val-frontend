@@ -9,7 +9,7 @@
     regexp: "{{ item.regexp }}"
     replace: "{{ item.value }}"
   loop:
-    - { regexp: '\$SERVER_NAME', value: "{{ ansible_host }}" }
+    - { regexp: '\$SERVER_NAME', value: "{{ host }}" }
     - { regexp: '\$ROOT_PATH', value: "{{ app_path }}" }
     - { regexp: '\$BACKEND_URI', value: "http://{{ backend_host }}" }
 
