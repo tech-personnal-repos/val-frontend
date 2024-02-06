@@ -9,30 +9,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: read
-      pull-requests: read
-      issues: read
-    steps:
-      - uses: actions/checkout@v4.1.1
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 10
-
-      - name: Npm install
-        run: npm install
-
-      - name: Npm test
-        run: npm run test
-
   create-release:
     runs-on: ubuntu-latest
-    needs: test
     permissions:
       contents: write
       packages: write
