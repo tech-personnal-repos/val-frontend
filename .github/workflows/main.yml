@@ -80,13 +80,34 @@ jobs:
           tag: ${{ steps.package.outputs.version }}
           overwrite: true
 
-      - name: Run playbook
-        uses: dawidd6/action-ansible-playbook@v2
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment: production
+    permissions:
+      contents: write
+      packages: write
+      pull-requests: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v4.1.1
 
+      - name: Get package info
+        id: package
+        uses: kylejrp/action-nodejs-package-info@v1.2
+
+      - name: Deploy with ansible
+        uses: dawidd6/action-ansible-playbook@v2
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: false
         with:
           playbook: playbook.yml
-          directory: ./.github/ansible
-          key: ${{secrets.SSH_KEY}}
+          directory: ./.github/workflows/ansible
+          key: ${{ secrets.SSH_KEY }}
           inventory: |
             [frontend]
-            ${{secrets.HOST}} ansible_user=${{secrets.USER}}
+            ${{ secrets.HOST }} ansible_user=${{ secrets.USER }}
+          extra-vars: |
+            version=${{ steps.package.outputs.version }}
+            backend_host=${{ secrets.BACKEND_HOST }}
+            app_path=${{ secrets.APP_PATH }}

@@ -1,0 +1,14 @@
+server {
+    listen 80;
+    server_name $SERVER_NAME;
+
+    root $ROOT_PATH;
+
+    location /api {
+        proxy_pass $BACKEND_URI/$uri;
+    }
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}

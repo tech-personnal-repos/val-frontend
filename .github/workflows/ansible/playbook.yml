@@ -1,0 +1,11 @@
+- name: Setup Frontend
+  hosts: frontend
+
+  tasks:
+    - name: Run Setup playbook
+      ansible.builtin.import_tasks:
+        file: ./setup.yml
+
+    - name: Run Deploy playbook
+      ansible.builtin.import_tasks:
+        file: ./deploy.yml

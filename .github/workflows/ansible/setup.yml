@@ -1,0 +1,24 @@
+- name: Apt update
+  apt:
+    update_cache: yes
+
+- name: Install dependencies
+  apt:
+    name: "{{item}}"
+    state: present
+  loop:
+    - "nginx"
+    - "unzip"
+    - "curl"
+  register: installed_dependencies
+
+- name: Remove Apache
+  apt:
+    name: "apache2"
+    state: absent
+  when: installed_dependencies.changed
+
+- name: Setup nginx
+  ansible.builtin.import_tasks:
+    file: ./nginx.yml
+  when: installed_dependencies.changed

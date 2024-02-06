@@ -1,0 +1,30 @@
+- name: Copy nginx configuration
+  template:
+    src: ./templates/nginx.conf.template
+    dest: /etc/nginx/sites-available/front.conf
+
+- name: Replace variables in nginx configuration
+  replace:
+    path: /etc/nginx/sites-available/front.conf
+    regexp: "{{ item.regexp }}"
+    replace: "{{ item.value }}"
+  loop:
+    - { regexp: '\$SERVER_NAME', value: "{{ ansible_host }}" }
+    - { regexp: '\$ROOT_PATH', value: "{{ app_path }}" }
+    - { regexp: '\$BACKEND_URI', value: "http://{{ backend_host }}" }
+
+- name: Enable nginx configuration
+  file:
+    src: /etc/nginx/sites-available/front.conf
+    dest: /etc/nginx/sites-enabled/front.conf
+    state: link
+
+- name: Disable default nginx configuration
+  file:
+    dest: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: Restart nginx
+  service:
+    name: nginx
+    state: restarted

@@ -1,0 +1,21 @@
+- name: Get front build
+  ansible.builtin.get_url:
+    url: https://github.com/tech-personnal-repos/val-frontend/releases/download/{{ version }}/front.zip
+    dest: /tmp/front.zip
+
+- name: Unzip front build
+  ansible.builtin.unarchive:
+    src: /tmp/front.zip
+    dest: "/tmp/front"
+    remote_src: yes
+
+- name: Remove old front build
+  ansible.builtin.file:
+    path: "{{ app_path }}/front"
+    state: absent
+
+- name: Move front build
+  ansible.builtin.copy:
+    src: "/tmp/front"
+    dest: "{{ app_path }}"
+    remote_src: yes
