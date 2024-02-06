@@ -4,8 +4,8 @@ Following env var should be set as secrets in a "production" environnement:
 - BACKEND_HOST: the IP address of your backend server
 - HOST: the IP address where the front should be hosted
 - SSH_KEY: the private ssh key which will be used by ansible to connect to your front and deploys it
-- USER: the user to use to connect to the front server
-
+- USER: the user to use to connect to the front server  
+  
 ---
 module:			T-NSA-700
 title:			devOps
