@@ -21,6 +21,6 @@
 
 - name: Move front build
   ansible.builtin.copy:
-    src: "/tmp/front"
+    src: "/tmp/front/"
     dest: "{{ app_path }}"
     remote_src: yes
