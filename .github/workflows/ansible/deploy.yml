@@ -3,6 +3,11 @@
     url: "{{ download_url }}"
     dest: /tmp/front.zip
 
+- name: Ensure tmp directory exists
+  ansible.builtin.file:
+    path: /tmp/front
+    state: directory
+
 - name: Unzip front build
   ansible.builtin.unarchive:
     src: /tmp/front.zip
@@ -11,7 +16,7 @@
 
 - name: Remove old front build
   ansible.builtin.file:
-    path: "{{ app_path }}/front"
+    path: "{{ app_path }}"
     state: absent
 
 - name: Move front build
